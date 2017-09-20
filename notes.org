@@ -1,0 +1,476 @@
+#+TODO: TODO STUDY STUDIED | COMPLETED
+#+LaTeX_CLASS_OPTIONS: [10pt]
+hari@cs.utah.edu
+
+* Table of Contents
+** [[Monday August 21]]
+** [[Wednesday August 23]]
+** [[Monday August 28]]
+** [[Wednesday August 30]]
+** [[Monday September 11]]
+** [[Monday September 18]]
+* Monday August 21
+  [[https://utah.instructure.com/courses/460847/assignments/syllabus][Syllabus Link]]
+
+** Course Objectives
+*** algorithms for sorting
+    + selection sort
+    +  insertion sort
+    + quicksort
+    + mergesort
+*** Alogrithms for Searching Lists
+    + linear Serach
+    + binary Search
+*** Data Structures for representing lists and sets
+    + array lists
+    + binary search trees
+    + hash tables
+*** Abstractions of data structures
+    + lists
+    + queues, stacks
+    + sets, maps
+*** asymptotic Complexity Analysis
+    + Big- 0
+** Grading Weight
+   + Assignment / Quiz (50%)
+   + Midterm (20%)
+   + Final (30%)
+** Today's Slides
+*** Al Khwarizimi
+    Persion Mathmtician. Most famous for his book Al Jabr
+*** Objections to CS4150
+    + One algorithm is as good as the next
+    + You can find it on the web
+    + Hate Psuedo-code
+    + Real Programmers don't run complexity analysis
+
+* Wednesday August 23
+**  Asymptotic Complexity
+
+*** Selection Sort
+    Selects the smallest value that it has seen thus far, and will continually
+    look ahead.  Constantly looking for the smallest value
+
+    BIG O for selection sort = N^2 + N + (a + b) or ON^2
+*** Simple Summations
+    1 + 2 + 3 + 4 + .... n = n(n + 1) / 2
+
+    2 + 4 + .... + 2n = 2(1 + 2 + 3 + .... n) = n(n + 1)
+*** Doubling Behavior
+    + To analyze an algorithm we need to
+      - Count the operations
+      - Time the operations to obtain a formula of the form
+
+    + Fortunately if all we care about is doubling behavior
+      - The constants don't matter
+      - There is no need to time the operations to determine the constants
+
+    + Furthermore if all we care about is doubling behavior
+      - The low order terms do not matter
+      - We need only count operations carefully enough to determine the high
+        order term
+
+    We only care about the question of 'What happens when n gets very large?'
+*** Asymptoitic Complexity
+    f(n) = O(g(n)) == g(n) = Ω(f(n))
+   1.  O --> less or equal
+   2.  Ω --> greater or equal
+   3.  Θ --> equal
+   4.  o --> less
+   5.  ω --> greater
+*** Example
+     3n^2 + 5n + 3
+    - is O(n^3), O(n^2log(n)),  O(n^2) <=
+    - is omega(1), omega(n),  omega(nlog(n)),  omega(n^2) >=
+    - is ϑ(n^2) =
+
+    Ω() and O() are not tight bounds.
+    They do not signify upper and lower bounds
+*** Insertion Sort
+    At best case there are n-1 = ϑ(n) data comparisons
+    At worst there are 1 + 2 + ... n-1 = ϑ(n^2)
+    We can say
+    + Insertion sort is O(n^2) and Ω(n) (and the bounds are tight)
+    + We cannot put a ϑ() bound on insertion sort
+* Monday August 28
+** Timing Guidelines
+   + Make your computer 'quiet'
+     - Look at the performance profile
+     - Shut down extraneous processes
+
+   + Never time small intervals
+     - Even if your clock ticks very frequently,
+       it is innacurate on small intervals
+     - Time a long-running loop and average
+
+   + Account for timing overhead
+     - If you time a long-running loo, remove the method call youre trying
+       to time
+     - Subtract the overhead
+     - Display both the overall average and the overhead average
+
+   + Design and Interpret your experiment carefully
+     - Average over a distrubution that mimics reality
+
+** Doubling Behavior
+   + Constant = f(c), f(2c) --> stays the same
+   + Logarithmic = f(log(n)), f(log(2n)) --> increases by constant
+   + Linear = f(n), f(2n) --> doubles
+   + N Log N = f(nlog(n)), f(2nlog(2n)) --> more than double
+   + Quadratic = f(n^2), f(2n^2) --> Quadruples
+   + Cubic = f(n^3), f(2n^3) --> Octuples
+   + Exponential = f(2^n), f(2^(2n)) --> Squares (doubles for n + 1)
+
+* Wednesday August 30
+   + List
+     - Dynamic array std::vector
+     - Linked List std::list
+   + Set
+     - Binary Tree std::set
+     - Hash Table std::unordered set
+   + Map std::map
+** Asymptotic Complexity
+*** Simplification Examples
+    | Rule                 | Think                    |
+    |----------------------+--------------------------|
+    | c(g(n)) is ϑ(g(n))   | Igonre leading constants |
+    | If (f(n)) is o(g(n)) | Ignore low-order terms   |
+    | then g(n) + f(n) is  |                          |
+    | ϑ(g(n))              |                          |
+    Rule                    --> Think
+    + c g(n) is ϑ(g(n)) --> Ignore leading constants
+    + If f(n) is o(g(n)),   --> Ignore low-order terms
+      then g(n) + f(n) is
+      ϑ(g(n))
+
+    + 3n^2 + 5n - 3 is ϑ(n^2)
+      - Remove low order terms and leading constant
+    + n is o(n log(n))
+      - 1 is o(log(n)) and n is O(n)
+    + n log(n) is o(n^2)
+      - log(n) is o(n) and n is O(n)
+    + 100 2^n is o(n2^m)
+      - 100 is o(n) and 2^n is O(2^n)
+*** Book Definition
+    Let f(n) and g(n) be functions from positive integers to positive reals
+    We say that f(n) is O(g(n))
+
+    if there is a constant c > 0 such that f(n) <= g(n)
+*** Traditional Definition
+    Let f(n) and g(n) be function from reals to reals.
+    We say that f(n) is O(g(n))
+
+    if there are postivie constants c and n0 such that 0 <= f(n) <= c * g(n)
+    for all n >= n0
+
+
+** Lists
+   + A list provides a collectoin of elements, indexed with integers
+   + Get(or Set) the element at a specefied index
+   + Iterable
+
+     The dynamic array is better at random access
+     The linked list is better at insertion
+*** Dynamic Array Representation
+    + Represent with a fixed-length array. but leave room to grow
+    + The size of the list and the length of the array must be maintained
+      seperately
+    + When the array is full and we need to add an element, we create a new array
+      twice as long and copy the old array
+
+    Operation --> Best Case --> Worst Case
+    + Get     --> O(1) --> O(1)
+    + AddLast --> O(1) --> O(n)
+    + Iterate --> O(n) --> O(n)
+    + GetAt   --> O(1) --> O(1)
+    + AddAt   --> O(1) --> O(n)
+
+*** Linked List
+    + Represent with a doubly-linked list
+    + The list size and references to the first and last links must be kept
+    + Insertion involves creating a new link and changing two references
+
+    Operation --> Best Case --> Worst Case
+    + Get     --> O(1)      --> O(n)
+    + AddLast --> O(1)      --> O(1)
+    + Iterate --> O(n)      --> O(n)
+    + GetAt   --> O(1)      --> O(1)
+    + AddAt   --> O(1)      --> O(1)
+
+*** Amortize (aka write off the initial setup)
+    + Instead of analyzing the worst case for a single AddLast, lets analyze the
+      worst case for k consecutive AddLasts
+      - Lets Assume
+        - Dynamic array starts out with room for 1 element
+        - We resize it as soon as it fills
+        - Count an append as cost a, resize as cost r per element
+| Operation | Ending Size | Cost      |
+|-----------+-------------+-----------|
+| 1 AddLast |           1 | a         |
+| resize    |             | r         |
+| 1 Addlast |           2 | a         |
+| resize    |             | 2r        |
+| 2 AddLast |           4 | 2a        |
+| resize    |             | 4r        |
+| 4 AddLast |           8 | 4a        |
+| resize    |             | 8r        |
+| 2^k       |       2^k+1 | 2^k *a    |
+| resize    |             | 2^k+1 * r |
+
+   +  Count of AddLasts:
+     - a + (1 + 2 + 4 + ... 2^k) * a = a (2^(k+1) - 1) = 2^(k+1) * a
+
+   +  Count of Resizes:
+     - (1 + 2 + 4 + .. 2^(k+1)) * r = (2^(k+2) - 1)*r
+
+   + Total Cost:
+      - 2^(k+1) * a + (2^(k+2) - 1) * r = 2^(k + 1) * (a + 2r) - r
+
+   + Number of AddLasts performed
+      - 2^(k + 1)
+
+   + Average cost of an Addlast
+      - a + 2r - r / 2^(k + 0)
+
+    Conclusion:
+    k AddLasts can be done in ϑ(K) time
+
+** Sets
+   + A set provides an unindexed collection of elements without duplicates
+   + Methods
+     - Insert
+     - Remove
+     - Lookup
+     - Iterate
+
+*** Binary Search Tree
+   + Binary tree in which every node in the lef tusbtree is smaller and every
+     node in the right subtree is larger
+   + Iteration reqiures in-order binary tree traversal
+
+*** Hash Table
+   + Array of linked-lists. Hash the element and store the element in a corresponding bucket
+   + Enlarge and rehash as buckets fill
+   + Performance depends on quality of hash function
+
+*** Set Representation Comparison
+    Binary Search Tree
+    | Op      | Best | Worst |
+    |---------+------+-------|
+    | Insert  |    1 | n     |
+    | Remove  |    1 | n     |
+    | Lookup  |    1 | n     |
+    | Iterate |    1 | n     |
+
+    Hash Table
+    | Op      | Best | Worst |
+    |---------+------+-------|
+    | Insert  |    1 | n     |
+    | Remove  |    1 | n     |
+    | Lookup  |    1 | n     |
+    | Iterate |    1 | n     |
+
+
+*** Balanced Binary Search Trees
+    + Rotations can be used to restore balance to a bst
+      - Results in O(log n)
+
+*** Expected Complexity of Hashing
+    + Best hash function is one for which the probability of
+    randomly-chosen keys hash to the same buket is 1/m, where m is # of buckets
+
+*** Map Abstraction
+   + A map provides an unindexed collection of key/value pairs without
+   duplicate keys
+   + Can use the same representation as for sets
+
+* Monday September 11
+
+** Reccurrence
+
+*** Addition
+    Base 10:
+       149
+     + 929
+      ----
+      1075
+      9 + 6 = 15
+      sum = 15 % 10 = 5
+      carry = 15 / 10 = 1
+      1 + 4 + 2 = 7
+      sum = 7 % 10 / 7
+      carry = 7/10 = 0
+
+    Base 8:
+       225
+    + 1636
+      ----
+      2063
+      5 + 6 = 11
+      sum = 11 % 8
+      carry = 11 / 8 = 1
+      1 + 2 + 3 = 6
+      sum = 6 % 8 = 6
+      carry = 6 / 8 = 0
+
+*** Representing Big Integers
+    + How could you represent arbitrary-length integers in a class that
+      provides addition, multiplication etc?
+      - Strong of digits?
+      - Array of digits?
+      - Array of integers?
+      - Arrays of integers in base 2?
+      - Arrays of integers in base 16?
+
+    + Observations:
+      - base b requires log_b(n) "digits" to represent n, so bigger bases are better
+      - base must be small enough so that digits can be added and multiplied
+        using machine arithmetic
+      - Division and mod operations need to be fast using binary operations
+*** Conclusions
+    + Use base 2^52
+      - Each digit will fit into 32-bit int
+      - Can do machine operations in 64-bit int
+      - Largest sum is (2^52 - 1) + (2^52 -1) < 2^64
+      - Div can be done by discarding low 32 bits
+      - Mod can be done by discarding all except low 32 bits of results
+*** Recursion
+    Grade School Alogorithms
+    + Complexity of adding two n bit integers with grade school algo?
+      0(N)
+    + Complexity of mult two n bit integers with grade school algo?
+      O(n^2)
+
+    Recursive Multiplication
+    1. Split x and y into first n/2 bits (x_L, y_L) and the last n/2 bits (x_R, y_R)
+    2. x = 2^(n/2) * x_L + x_R
+    3. y = 2^(n/2) * y_L + y_R
+    4. xy = (2^(n/2)*x_L + x_R)(2^(n/2)*y_L + y_R) = 2^(n)x_L y_L + 2^(n/2)(x_L y_R + x_R y_L) + x_R y_R
+
+    This requires
+    a. 2 splits of n-bit paris into pairs of n/2
+    b. 4 recursive mutliplication of n/2 integers
+    c. 1 addition of n-bit ints
+    d. 1 multiplication of n-bit int by 2^(n)
+    e. 1 multiplication of n-bit int by 2^(n/2)
+    f. 1 addition of 2n and 3n/2 bit ints
+    g. 1 addition of 2n and n bit ints
+
+    Complexity of these steps
+    a. O(N)
+    b. ????
+    c. O(N)
+    d. O(N)
+    e. O(N)
+    f. O(N)
+    g. O(N)
+*** Recurrence Relation
+   Let T(n) be the time required to recirsively mutltiply two-n-bit ints
+   + T(n) = time required for the recursive calls + other time
+     - = 4 T(n/2) + O(n)
+   + T(1) = time required for base case (1-bit)
+     - O(1)
+
+   This is called recurrence relation
+   If we can put O(...) bound on T(n), we will have an O(...) bound on the running time
+   of the recursive multiplication algorithm
+*** General Case Recurrence Relation
+   + time required to solve problem of size n
+     - Set up the recursions (n^(d))
+     - Recursively solve the a problems of size n/ b
+     - combine the recursive solutions (n^(d))
+   - T(n) = a * T(n/b) + O(n^d)
+   - T(1) = 1
+   | Level | Work         |
+   |-------+--------------|
+   |     0 | n^2          |
+   |     1 | a(n/b)^d     |
+   |     2 | a^2(n/b^2)^d |
+   |     k | a^k(n/b^k)^d |
+*** Master Theorem
+    If
+    - T(n) = aT(n/b) + ϑ(n^d)
+    for all constants a > 0, b > 1 and d >= 0 then
+    T(n) =
+    - ϑ(n^d)           if d > log_b(a)
+    - ϑ(n^d log n)     if d = log_b(a)
+    - ϑ(n^(log_b(a)))  if d < log_b(a)
+* Monday September 18
+** Tail Recurrsion Optimization
+   + If a method returns immediately after a recursive call, it is tail recursive
+     A tail recursive call can be mechanically converted into a loop which
+     eliminates the need for a new stack frame
+
+   1. Loop runs while base case condition is false
+   2. Body of loop is the same as body of recursive case, up to recursive call
+   3. Loop ends with assignment of acutial parameters to formal parameters
+   4. Base Case Follows loop
+   #+begin_src C
+   /* Recursive */
+   int gcd(int a, int b) {
+      if (b == 0)       // 1 // 2
+         return a;      // 4 // 2
+      else
+         return gcd(b, a%b); // 2
+   }
+   /* Iterative */
+   int gcd(int a, int b) {
+      while(b != 0) {     // 1
+         int mod = a%b;   // 3 // 2
+         a = b;           // 3 // 2
+         b = mod;         // 3 // 2
+      }
+      return a; // 4
+   }
+   #+end_src
+** Graphs
+   + What is a graph
+     - Formaly: A set of vertices and a set of edges (edge = pair of vertices)
+     - Intuitively: Representation of relationships among objects
+     - V stands for either the set of all vertices or the number of vertices
+     - E stands for either the set of all edges or the number of edges
+*** Uses for graphs
+    + Represent "Borders from Relation Map" (Undirected)
+    + Represent "Linked to" relation from web pages (Directed)
+    + Represent "Prerequisite of" relationship (Directed acyclic)
+    + Represent "Distance between cities" (Weighted, undirected)
+    + Represent "Time to hike" between trail intersections (Weighted, directed)
+*** Adjacency Matrix
+   + Adjacency matrix stores information about each possible edge
+   + Consumes Θ(V^2) space
+|   | 1  |  2 | 3  | 4  |
+|---+----+----+----+----|
+| 1 | -  | 45 | -  | -  |
+| 2 | 65 |  - | -  | 20 |
+| 3 | -  | 55 | -  | -  |
+| 4 | -  |  - | 40 | -  |
+
+
+   i.e 1 goes to 2 with wieght of 45, and 2 goes to one with weight of 64
+*** Adjacency List
+    + Adjancency List stores information about each actual edge
+    + Consumes  Θ(E + V) space
+    #+begin_src C
+    |----|----|----|----|
+    |----|----|----|----|
+    |----|----|----|----|
+      |    |    |    |
+      v    v    v    v
+    |2 | |1 | |2 | |3 |
+    |45| |65| |55| |40|
+    |/ | |/ | |/ | |/  |
+          |
+          v
+         |4 |
+         |20|
+         |/ |
+    #+end_src
+*** Which is Better (List vs Matrix)
+    + A sparse graph has O(V) edges
+    + A dense graph has Ω(V^2) edges
+    + How much space for sparse graphs?
+      - Matrix: Θ(V^2)
+      - List:   Θ(V)
+    + How much space do both reps use for dense?
+      - Martix: Θ(V^2)
+      - List:   Θ(V^2)
